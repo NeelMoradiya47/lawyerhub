@@ -1,0 +1,312 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/admin_dashboard_style.css' %}">
+{% endblock %}
+
+{% block main %}
+<section>
+    <div class="d-flex">
+        <div class="border sidebar">
+            <div class="list-group list-group-flush">
+                <a href="/admin_lawyer" class="list-group-item list-group-item-action sidebar">Registered lawyers</a>
+                <a href="/admin_user" class="list-group-item list-group-item-action sidebar">Registered Users</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% if suc %}
+                    <div id="alert" class="alert alert-danger alert-dismissible fade show my-3 mx-auto" role="alert">
+                        <strong>Welcome!</strong> You are logged in as Admin.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endif %}
+
+                    <div class="row my-3">
+                        <div class="col-md-6">
+                            <div id="total"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div id="total2"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div id="total3"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div id="total4"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div id="total5"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div id="total6"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div id="total7"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var lawyer_data = JSON.parse("{{ lawyer_data | escapejs }}");
+        var user_data = JSON.parse("{{ user_data | escapejs }}");
+
+        // Object to store counts of different roles
+        var roleCounts = {};
+
+        // Count the number of each role in lawyer data
+        $.each(lawyer_data, function (index, row) {
+            var lawyer_role = `${row.role}`;
+            roleCounts[lawyer_role] = (roleCounts[lawyer_role] || 0) + 1;
+        });
+
+        $.each(user_data, function (index, row) {
+            var user_role = `${row.role}`;
+            roleCounts[user_role] = (roleCounts[user_role] || 0) + 1;
+        });
+
+        // Load Google Charts and call drawChart function when loaded
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        // Function to draw the pie chart
+        function drawChart () {
+            // Convert roleCounts object to an array of arrays
+            var data = google.visualization.arrayToDataTable([
+                ['Role', 'Number'],
+                ...Object.entries(roleCounts).map(([role, count]) => [role, count]),
+            ]);
+
+            // Options for the pie chart
+            var options = {
+                'title': 'Percentage of Registered User & Lawyer',
+                'legend': 'left',
+                'is3D': true,
+            };
+
+            // Create and draw the pie chart
+            var chart = new google.visualization.PieChart(document.getElementById('total'));
+            chart.draw(data, options);
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var lawyer_data = JSON.parse("{{ lawyer_data | escapejs }}");
+
+        var specialityCounts = {};
+
+        $.each(lawyer_data, function (index, row) {
+            var lawyer_speciality = `${row.speciality}`;
+            specialityCounts[lawyer_speciality] = (specialityCounts[lawyer_speciality] || 0) + 1;
+        });
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart () {
+            var data = google.visualization.arrayToDataTable([
+                ['Speciality', 'Number'],
+                ...Object.entries(specialityCounts)
+            ]);
+
+            var options = {
+                'title': 'Percentage of Registered Lawyers Speciality',
+                'legend': 'left',
+                'is3D': true
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('total2'));
+            chart.draw(data, options);
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var lawyer_data = JSON.parse("{{ lawyer_data | escapejs }}");
+
+        var degreeCounts = {};
+
+        $.each(lawyer_data, function (index, row) {
+            var lawyer_degree = `${row.degree}`;
+            degreeCounts[lawyer_degree] = (degreeCounts[lawyer_degree] || 0) + 1;
+        });
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart () {
+            var data = google.visualization.arrayToDataTable([
+                ['Degree', 'Number'],
+                ...Object.entries(degreeCounts)
+            ]);
+
+            var options = {
+                'title': 'Percentage of Registererd Lawyers Degree',
+                'legend': 'left',
+                'is3D': true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('total3'));
+            chart.draw(data, options);
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var lawyer_data = JSON.parse("{{ lawyer_data | escapejs }}");
+
+        var practise_length_counts = {};
+
+        $.each(lawyer_data, function (index, row) {
+            var lawyer_practise_length = `${row.practise_length}`;
+            practise_length_counts[lawyer_practise_length] = (practise_length_counts[lawyer_practise_length] || 0) + 1;
+        });
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart () {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Practise Length', 'Number'],
+                ...Object.entries(practise_length_counts)
+            ]);
+
+            var options = {
+                'title': 'Percentage of Experience Lawyers ',
+                'legend': 'left',
+                'is3D': true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('total4'));
+            chart.draw(data, options);
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var lawyer_data = JSON.parse("{{ lawyer_data | escapejs }}");
+        var booking_data = JSON.parse("{{ booking_data | escapejs }}");
+
+        var first_name_counts = {};
+
+        $.each(booking_data, function (index, row) {
+            var matchingLawyer = lawyer_data.find(booking => booking.lawyer_id === row.lawyer_id);
+
+            var lawyer_first_name = `${matchingLawyer.first_name}`;
+            first_name_counts[lawyer_first_name] = (first_name_counts[lawyer_first_name] || 0) + 1;
+        });
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart () {
+            var data = google.visualization.arrayToDataTable([
+                ['Name', 'Number'],
+                ...Object.entries(first_name_counts)
+            ]);
+
+            var options = {
+                'title': 'Percentage of Most Experience Lawyers ',
+                'legend': 'left',
+                'is3D': true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('total5'));
+            chart.draw(data, options);
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var lawyer_data = JSON.parse("{{ lawyer_data | escapejs }}");
+
+        var cityCounts = {};
+
+        $.each(lawyer_data, function (index, row) {
+            var lawyer_city = `${row.city}`;
+            cityCounts[lawyer_city] = (cityCounts[lawyer_city] || 0) + 1;
+        });
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart () {
+            var data = google.visualization.arrayToDataTable([
+                ['City', 'Number'],
+                ...Object.entries(cityCounts)
+            ]);
+
+            var options = {
+                'title': 'Percentage of Registererd Lawyers City',
+                'legend': 'left',
+                'is3D': true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('total6'));
+            chart.draw(data, options);
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var user_data = JSON.parse("{{ user_data | escapejs }}");
+
+        var cityCounts = {};
+
+        $.each(user_data, function (index, row) {
+            var user_city = `${row.city}`;
+            cityCounts[user_city] = (cityCounts[user_city] || 0) + 1;
+        });
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart () {
+            var data = google.visualization.arrayToDataTable([
+                ['City', 'Number'],
+                ...Object.entries(cityCounts)
+            ]);
+
+            var options = {
+                'title': 'Percentage of Registererd Users City',
+                'legend': 'left',
+                'is3D': true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('total7'));
+            chart.draw(data, options);
+        }
+    });
+</script>
+{% endblock %}

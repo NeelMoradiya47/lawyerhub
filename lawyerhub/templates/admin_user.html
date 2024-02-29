@@ -1,0 +1,70 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}Admin User{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/admin_dashboard_style.css' %}">
+{% endblock %}
+
+{% block main %}
+<section>
+    <div class="d-flex">
+        <div class="border sidebar">
+            <div class="list-group list-group-flush">
+                <a href="/admin_lawyer" class="list-group-item list-group-item-action sidebar">Registered lawyers</a>
+                <a href="/admin_user" class="list-group-item list-group-item-action sidebar">Registered Users</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mx-md-auto my-4 table-responsive">
+                    <table class="table table-bordered table-primary align-middle">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Client ID</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Email</th>
+                                <th>Contact Number</th>
+                                <th>Full Address</th>
+                                <th>City</th>
+                                <th>Zip Code</th>
+                                <th>Image</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for user in user_data %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.client_id }}</td>
+                                <td>{{ user.first_name }}</td>
+                                <td>{{ user.last_name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>+91{{ user.contact_number }}</td>
+                                <td>{{ user.full_address }}</td>
+                                <td>{{ user.city }}</td>
+                                <td>{{ user.zip_code }}</td>
+                                <td><img src="{% static 'images/upload/' %}{{ user.image }}" class="img-fluid" alt="User Image"></td>
+                                        
+                                <td>
+                                    {% if user.status == 'Active' %}
+                                    <a class="btn btn-sm btn-danger" href="/block_user/{{ user.client_id }}">Block</a>
+                                    {% else %}
+                                    <a class="btn btn-sm btn-warning" href="/unblock_user/{{ user.client_id }}">Unblock</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

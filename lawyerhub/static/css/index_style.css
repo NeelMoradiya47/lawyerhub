@@ -1,0 +1,45 @@
+#background_image {
+    background-image: url(/static/images/bannerimg.png);
+    background-size: cover;
+}
+
+#heading {
+    text-align: center;
+    color: white;
+    margin: 100px;
+}
+
+#section2 {
+    margin: 30px;
+}
+
+#padding {
+    padding-left: 3.5rem !important;
+    padding-right: 3.5rem !important;
+}
+
+#card {
+    width: 20rem;
+}
+
+#lawyer_profile {
+    background-color: #009f9f;
+}
+
+#section2 .card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    /* Make changes to the card's scale appear gradual over a duration of 0.3 seconds */
+    transition: transform 0.3s ease-in-out;
+}
+
+#section2 .card:hover {
+    /* Scale the card up by 5% when hovering over it, creating a slight zoom effect */
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    #section2 .card {
+        margin-bottom: 25px;
+    }
+}

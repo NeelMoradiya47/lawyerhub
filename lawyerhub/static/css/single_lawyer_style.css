@@ -1,0 +1,9 @@
+.img-fluid {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+}
+
+#submit {
+    background-color: rgb(0, 170, 170);
+}

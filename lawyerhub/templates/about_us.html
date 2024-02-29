@@ -1,0 +1,50 @@
+{% extends 'master.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block style %}
+<style>
+    #bg_img {
+        background: url(/static/images/legal_background.png) no-repeat center center;
+        background-size: cover;
+        color: #fff;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+<section class="py-5" id="bg_img">
+    <div class="container text-center">
+        <h1 class="mb-4">Welcome to Legal Services with LegalEase</h1>
+        <p class="lead">Transforming legal services through innovation and accessibility.</p>
+    </div>
+</section>
+
+<section class="bg-light my-4 py-4">
+    <div class="container">
+        <h2 class="text-center mb-4">Our Mission</h2>
+        <p class="lead text-center">Empowering individuals and legal professionals through a reliable and efficient
+            platform for legal services.</p>
+    </div>
+</section>
+
+<section class="my-4">
+    <div class="container">
+        <h2 class="text-center mb-4">Who We Are</h2>
+        <p class="lead text-center">Founded by passionate individuals with backgrounds in law, technology, and business,
+            we aim to revolutionize the legal industry.</p>
+    </div>
+</section>
+
+<section class="bg-light my-4 py-4">
+    <div class="container">
+        <h2 class="text-center mb-4">What Sets Us Apart</h2>
+        <ul class="list-unstyled text-center">
+            <li><b>Innovation:</b> Constantly evolving with legal technology.</li>
+            <li><b>User-Centric Approach:</b> Designing a seamless and intuitive interface.</li>
+            <li><b>Transparency:</b> Ensuring transparency at every step of the legal process.</li>
+            <li><b>Security:</b> Prioritizing your privacy with state-of-the-art measures.</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

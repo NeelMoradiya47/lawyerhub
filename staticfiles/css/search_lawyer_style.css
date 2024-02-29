@@ -1,0 +1,25 @@
+footer {
+    margin-top: 8.1rem;
+}
+
+#card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+#card:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 576px) {
+    #card {
+        width: 100%;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+    #card {
+        width: 100%;
+    }
+}

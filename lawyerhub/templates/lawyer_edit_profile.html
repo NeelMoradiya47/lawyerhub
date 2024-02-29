@@ -1,0 +1,353 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}Lawyer Edit Profile{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/admin_dashboard_style.css' %}">
+<link rel="stylesheet" type='text/css' href="{% static 'css/lawyer_edit_profile_style.css' %}">
+{% endblock %}
+
+{% block main %}
+<section>
+    <div class="d-flex">
+        <div class="border sidebar">
+            <div class="list-group list-group-flush">
+                <a href="/lawyer_edit_profile" class="list-group-item list-group-item-action sidebar">Edit Profile</a>
+                <a href="/lawyer_booking" class="list-group-item list-group-item-action sidebar">Booking requests</a>
+                <a href="/update_password_lawyer" class="list-group-item list-group-item-action sidebar">Update
+                    Password</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% if done %}
+                    <div id="alert" class="alert alert-success alert-dismissible fade show mt-3 mx-auto" role="alert">
+                        Your profile <strong>Sucessfully!</strong> updated.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <form action="/lawyer_edit_profile" method="POST" enctype="multipart/form-data" id="validateForm">
+                {% csrf_token %}
+                <div class="row m-3">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="first_name" class="mt-2 mb-1">First Name</label>
+                                <input type="text" class="form-control mb-1" id="first_name" name="first_name"
+                                    placeholder="Enter your first name">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="last_name" class="mt-2 mb-1">Last Name</label>
+                                <input type="text" class="form-control mb-1" id="last_name" name="last_name"
+                                    placeholder="Enter your last name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact_number" class="mt-2 mb-1">Contact Number</label>
+                            <input type="text" class="form-control mb-1" name="contact_number" id="contact_number"
+                                placeholder="Enter your contact number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="mt-2 mb-1">Email</label>
+                            <input type="email" class="form-control mb-1" id="email" name="email"
+                                placeholder="Enter your email address">
+                        </div>
+                        {% if error %}
+                        <script>
+                            alert("{{ error }}");
+                        </script>
+                        {% endif %}
+
+                        <div class="form-group">
+                            <label for="image" class="mt-2 mb-1">Image</label>
+                            <input type="file" class="form-control mb-1" name="image" id="image">
+                        </div>
+                        {% if message %}
+                        <script>
+                            alert("{{ message }}");
+                        </script>
+                        {% endif %}
+
+                        <div class="form-group">
+                            <!--a lawyer can choose 5 category at max-->
+                            <label for="speciality" class="mt-2 mb-1">Types of case handle</label>
+                            <div class="row mb-1">
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Criminal matter" id="criminal_matter">
+                                        <label class="form-check-label" for="criminal_matter">
+                                            Criminal matter
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Civil matter" id="civil_matter">
+                                        <label class="form-check-label" for="civil_matter">
+                                            Civil matter
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Writ Jurisdiction" id="writ_jurisdiction">
+                                        <label class="form-check-label" for="writ_jurisdiction">
+                                            Writ Jurisdiction
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Company law" id="company_law">
+                                        <label class="form-check-label" for="company_law">
+                                            Company law
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Contract law" id="contract_law">
+                                        <label class="form-check-label" for="contract_law">
+                                            Contract law
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Commercial matter" id="commercial_matter">
+                                        <label class="form-check-label" for="commercial_matter">
+                                            Commercial matter
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Construction law" id="construction_law">
+                                        <label class="form-check-label" for="construction_law">
+                                            Construction law
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Information Technology" id="it">
+                                        <label class="form-check-label" for="it">
+                                            Information Technology
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Family Law" id="family_law">
+                                        <label class="form-check-label" for="family_law">
+                                            Family Law
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Religious Matter" id="religious_matter">
+                                        <label class="form-check-label" for="religious_matter">
+                                            Religious Matter
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Investment Matter" id="investment_matter">
+                                        <label class="form-check-label" for="investment_matter">
+                                            Investment Matter
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Labour Law" id="labour_law">
+                                        <label class="form-check-label" for="labour_law">
+                                            Labour Law
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Property Law" id="property_law">
+                                        <label class="form-check-label" value="Labour Law" for="property_law">
+                                            Property Law
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Taxation Matter" id="taxation_matter">
+                                        <label class="form-check-label" for="taxation_matter">
+                                            Taxation Matter
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="case_handle"
+                                            value="Others" id="others">
+                                        <label class="form-check-label" for="others">
+                                            Others
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label for="education" class="mt-2 mb-2"><strong>Put Your Last Education</strong></label>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="university_college" class="mb-1">University / College Name</label>
+                                <input type="text" class="form-control mb-1" id="university_college"
+                                    name="university_college" placeholder="Enter your institute name">
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="degree" class="mb-1">Degree</label>
+                                <select id="degree" name="degree" class="form-control mb-1">
+                                    <option value="" selected>Choose...</option>
+                                    <option value="LLB">LLB</option>
+                                    <option value="LLM">LLM</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="passing_year" class="mb-1">Passing Year</label>
+                                <select id="passing_year" name="passing_year" class="form-control mb-1">
+                                    <option value="" selected>Choose...</option>
+                                    {% for year in passing_years %}
+                                    <option value="{{ year }}">{{ year }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <label for="location" class="mt-3 mb-2"><strong>Put Your chamber Location</strong></label>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="full_address" class="mb-1">Full Address</label>
+                                <input type="text" class="form-control mb-1" id="full_address" name="full_address"
+                                    placeholder="Enter your full address">
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="city" class="mb-1">City</label>
+                                <select id="city" name="city" class="form-control mb-1">
+                                    <option value="" selected>Choose...</option>
+                                    <option value="Surat">Surat</option>
+                                    <option value="Chittagong">Chittagong</option>
+                                    <option value="Rajkot">Rajkot</option>
+                                    <option value="Bhavnagar">Bhavnagar</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="zip_code" class="mb-1">Zip code</label>
+                                <input type="text" class="form-control mb-1" id="zip_code" name="zip_code"
+                                    placeholder="Zip Code">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="practise_length" class="mt-3 mb-1">Length of practise</label>
+                            <select id="practise_length" name="practise_length" class="form-control mb-1">
+                                <option value="" selected>Choose...</option>
+                                <option value="1-5 years">1-5 years</option>
+                                <option value="6-10 years">6-10 years</option>
+                                <option value="11-15 years">11-15 years</option>
+                                <option value="16-20 years">16-20 years</option>
+                                <option value="Most Senior">Most Senior</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="speciality" class="mt-2 mb-1">My Speciality</label>
+                            <select id="speciality" name="speciality" class="form-control mb-1">
+                                <option value="" selected>Choose...</option>
+                                <option value="Criminal Law">Criminal law</option>
+                                <option value="Civil Law">Civil law</option>
+                                <option value="Writ Jurisdiction">Writ Jurisdiction</option>
+                                <option value="Company Law">Company law</option>
+                                <option value="Contract Law">Contract law</option>
+                                <option value="Commercial Law">Commercial law</option>
+                                <option value="Construction Law">Construction law</option>
+                                <option value="IT Law">IT law</option>
+                                <option value="Family Law">Family law</option>
+                                <option value="Religious Law">Religious law</option>
+                                <option value="Investment Law">Investment law</option>
+                                <option value="Labour Law">Labour law</option>
+                                <option value="Property Law">Property law</option>
+                                <option value="Taxation Law">Taxation law</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input name="update" id="update" type="submit" class="btn text-white float-end mt-3"
+                                value="Update">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#validateForm').bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                contact_number: {
+                    validators: {
+                        stringLength: {
+                            min: 10,
+                            max: 10,
+                            message: 'Contact Number must be 10 digits.'
+                        },
+                        numeric: {
+                            message: ' The Phone No must be a number.'
+                        },
+                    }
+                },
+                zip_code: {
+                    validators: {
+                        stringLength: {
+                            min: 4,
+                            max: 4,
+                            message: 'Zip Code must be 4 digits.'
+                        },
+                        numeric: {
+                            message: ' Zip Code must be a number.'
+                        },
+                    }
+                },
+            }
+        });
+    });
+</script>
+{% endblock %}

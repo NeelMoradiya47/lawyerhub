@@ -1,0 +1,226 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}User Register{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/lawyer_edit_profile_style.css' %}">
+<link rel="stylesheet" type='text/css' href="{% static 'css/lawyer_register_style.css' %}">
+{% endblock %}
+
+{% block main %}
+<section>
+    {% if success %}
+    <script>
+        alert("{{ success }}");
+    </script>
+    {% endif %}
+    
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 id="h1">Hello User!!!</h1>
+                <h2 id="h2">Register here to find suitable lawyers</h2>
+            </div>
+
+            <div class="col-md-5">
+                <form action="user_register" method="POST" enctype="multipart/form-data" id="validateForm">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="first_name" class="mt-2 mb-1">First Name</label>
+                            <input type="text" class="form-control mb-1" name="first_name" id="first_name"
+                                placeholder="Enter your first name" required>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="last_name" class="mt-2 mb-1">Last Name</label>
+                            <input type="text" class="form-control mb-1" name="last_name" id="last_name"
+                                placeholder="Enter your last name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="mt-2 mb-1">Email</label>
+                        <input type="email" class="form-control mb-1" name="email" id="email"
+                            placeholder="Enter your email address" required>
+                    </div>
+                    {% if error %}
+                    <script>
+                        alert("{{ error }}");
+                    </script>
+                    {% endif %}
+
+                    <div class="form-group">
+                        <label for="password" class="mt-2 mb-1">Password</label>
+                        <input type="password" class="form-control mb-1" id="password" name="password"
+                            placeholder="Enter your password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact_number" class="mt-2 mb-1">Contact Number</label>
+                        <input type="text" class="form-control mb-1" name="contact_number" id="contact_number"
+                            placeholder="Enter your contact number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image" class="mt-2 mb-1">Image</label>
+                        <input type="file" class="form-control mb-1" name="image" id="image" required>
+                    </div>
+                    {% if message %}
+                    <script>
+                        alert("{{ message }}");
+                    </script>
+                    {% endif %}
+
+                    <label for="address" class="mt-3 mb-2"><strong>Put Your address here </strong></label>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="full_address" class="mb-1">Full Address</label>
+                            <input type="text" class="form-control mb-1" name="full_address" id="full_address"
+                                placeholder="Enter your full address" required>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="city" class="mb-1">City</label>
+                            <select id="city" name="city" class="form-control mb-1" required>
+                                <option value="" selected>Choose...</option>
+                                <option value="Surat">Surat</option>
+                                <option value="Chittagong">Chittagong</option>
+                                <option value="Rajkot">Rajkot</option>
+                                <option value="Bhavnagar">Bhavnagar</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="zip_code" class="mb-1">Zip code</label>
+                            <input type="text" class="form-control mb-1" name="zip_code" id="zip_code"
+                                placeholder="Zip Code" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-2 mb-3">
+                        <div class="form-check agree">
+                            <input id="accept" name="agree" type="checkbox" value="y" required>
+                            <strong>I Agree with terms &amp; conditions</strong>
+                        </div>
+                    </div>
+
+                    <input name="post" type="submit" class="btn btn-block btn-success" value="Register">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#validateForm').bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                first_name: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please enter your First Name'
+                        },
+                    }
+                },
+                last_name: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please enter your Last Name'
+                        },
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please enter your E-mail address'
+                        },
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please enter your Password '
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 6,
+                            message: 'Password Length must be 6 characters'
+                        },
+                    }
+                },
+                contact_number: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please enter your Contact Number '
+                        },
+                        stringLength: {
+                            min: 10,
+                            max: 10,
+                            message: 'Contact Number must be 10 digits '
+                        },
+                        numeric: {
+                            message: 'The Phone No must be a number'
+                        },
+                    }
+                },
+                image: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select your Image'
+                        },
+                    }
+                },
+                full_address: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please enter your address'
+                        },
+                    }
+                },
+                city: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select your City'
+                        },
+                    }
+                },
+                zip_code: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please enter your Zip Code '
+                        },
+                        stringLength: {
+                            min: 4,
+                            max: 4,
+                            message: 'Zip Code must be 4 digits '
+                        },
+                        numeric: {
+                            message: 'Zip Code must be a number'
+                        },
+                    }
+                },
+                agree: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select our terms & conditions'
+                        },
+                    }
+                },
+            }
+        });
+    });
+</script>
+{% endblock %}

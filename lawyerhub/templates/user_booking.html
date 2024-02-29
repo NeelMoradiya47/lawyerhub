@@ -1,0 +1,64 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}User Booking Requests{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/admin_dashboard_style.css' %}">
+<style>
+    #update {
+        margin-bottom: 11.9rem;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+<section>
+    <div class="d-flex">
+        <div class="border sidebar">
+            <div class="list-group list-group-flush">
+                <a href="/user_edit_profile" class="list-group-item list-group-item-action sidebar">Edit Profile</a>
+                <a href="/user_booking" class="list-group-item list-group-item-action sidebar">My booking requests</a>
+                <a href="/update_password_user" class="list-group-item list-group-item-action sidebar" id="update">Update
+                    Password</a>
+            </div>
+        </div>
+
+        {% if success %}
+        <script>
+            alert("{{ success }}");
+        </script>
+        {% endif %}
+
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-md-12 table-responsive">
+                    <table class="table table-striped table-bordered table-success align-middle">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Lawyer Name</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for i in booking_data %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ i.date }}</td>
+                                <td>{{ i.description }}</td>
+                                <td>{{ i.lawyer_first_name }} {{ i.lawyer_last_name }}</td>
+                                <td>{{ i.status }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

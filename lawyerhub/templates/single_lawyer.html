@@ -1,0 +1,99 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}Lawyer Profile{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/single_lawyer_style.css' %}">
+{% endblock %}
+
+{% block main %}
+<section>
+    <div class="container p-5">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="{% static 'images/upload/' %}{{ lawyer_data.image }}" class="img-fluid mb-3"
+                    alt="Lawyer Image">
+                <h2>{{ lawyer_data.first_name }} {{ lawyer_data.last_name }}</span></h2>
+                <h4>{{ lawyer_data.speciality }}</h4>
+                <hr>
+            </div>
+
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-3"><label for="contact_number"><b>Contact number:</b></label></div>
+                    <div class="col-md-9">
+                        <p>{{ lawyer_data.contact_number }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3"><label for="email"><b>Email:</b></label></div>
+                    <div class="col-md-9">
+                        <p>{{ lawyer_data.email }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3"><label for="education"><b>Education:</b></label></div>
+                    <div class="col-md-9">
+                        <p>{{ lawyer_data.university_college }}</p>
+                        <p>{{ lawyer_data.degree }}</p>
+                        <p>{{ lawyer_data.passing_year }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3"><label for="practising_location"><b>Practising location:</b></label></div>
+                    <div class="col-md-9">
+                        <p>{{ lawyer_data.full_address }}</p>
+                        <p>{{ lawyer_data.city }}</p>
+                        <p>{{ lawyer_data.zip_code }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3"><label for="practising_length"><b>Practising length:</b></label></div>
+                    <div class="col-md-9">
+                        <p>{{ lawyer_data.practise_length }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3"><label for="case_handle"><b>Type of case handles:</b></label></div>
+                    <div class="col-md-9">
+                        <p>{{ lawyer_data.case_handle }}</p>
+                    </div>
+                </div>
+
+                <form action="single_lawyer" method="POST">
+                    {% csrf_token %}
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <label for="date">Book for appointment</label>
+                        </div>
+
+                        <input type="hidden" id="lawyer_id" name="lawyer_id" value="{{ lawyer_data.lawyer_id }}">
+                        <!-- <input type="hidden" id="client_id" name="client_id"
+                                value="{{ request.session.client_id }}"> -->
+
+                        <div class="col-md-3"><input type="date" id="date" name="date" class="form-control my-2" required></div>
+
+                        <div class="col-md-4"><textarea name="description" id="description" class="form-control mb-2" rows="4"
+                                placeholder="Write description" required></textarea></div>
+
+                        <div class="col-md-2">
+                            {% if msg %}
+                            <input type="submit" id="submit" name="submit" value="Request booking"
+                                class="btn text-white">
+                            {% else %}
+                            <h6><a href="/login">To request a lawyer booking, please log in or register first.</a></h6>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

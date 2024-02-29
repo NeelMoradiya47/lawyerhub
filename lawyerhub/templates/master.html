@@ -1,0 +1,150 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description"
+        content="LegalEase is the ultimate platform to find and hire the best lawyers in your area. We can help you find the right lawyer for your needs. Contact us today and get a free quote.">
+    <meta name="keywords" content="legal service, lawyer, attorney, law firm">
+    <meta name="author" content="Neel Moradiya, Founder of Legal Services with LegalEase">
+    <meta name="language" content="en">
+    <meta name="distribution" content="web">
+    <meta name="og:title" content="LegalEase: Find the Best Lawyers Near You | Legal Service Platform">
+    <meta name="og:description"
+        content="Looking for a lawyer? LegalEase is the ultimate platform to find and hire the best lawyers in your area. We can help you find the right lawyer for your needs. Contact us today and get a free quote.">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/logo.png' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" type='text/css' href="{% static 'css/master_style.css' %}">
+    {% block style %}{% endblock %}
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg">
+                <img src="{% static 'images/logo.png' %}" id="logo" alt="Logo">&nbsp;
+                <a class="navbar-brand" href="/">Legal Services with LegalEase</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation" id="toggle_button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-list"
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                    </svg>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/lawyers">Lawyers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about_us">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact_us">Contact Us</a>
+                        </li>
+
+                        {% if msg == 'lawyer' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/lawyer_profile">My Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                        {% elif msg == 'user' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user_profile">My Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                        {% elif msg == 'admin' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin_dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                Register
+                            </a>
+
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/lawyer_register">Register as a lawyer</a>
+                                <a class="dropdown-item" href="/user_register">Register as a user</a>
+                            </div>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2 id="title_shadow" class="text-center mb-4 slideIn">Our Services</h2>
+                    <ul class="list-unstyled text-center fadeIn">
+                        <li><b>Client Services:</b> Find the right lawyer, book appointments.</li>
+                        <li><b>Lawyer Services:</b> Expand your online presence, efficiently manage appointments.</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <h3 id="title_shadow" class="slideIn">How It Works:</h3>
+                    <ol type="1" class="mt-4 fadeIn">
+                        <li><b>Find a Lawyer:</b> Explore our directory of qualified lawyers based on practice areas,
+                            expertise, and client reviews.</li>
+                        <li><b>Book an Appointment:</b> Schedule appointments with your chosen lawyer at a time
+                            convenient
+                            for you.</li>
+                    </ol>
+                </div>
+
+                <div class="col-md-4">
+                    <h3 id="title_shadow" class="slideIn">Contact Details</h3>
+                    <!-- <p>We value your feedback and inquiries. If you have any questions, suggestions, or concerns, please
+                        don't
+                        hesitate to reach out to our team. Your input is crucial in helping us improve and enhance our
+                        services.</p> -->
+
+                    <p class="mt-4 fadeIn"><b>Email:</b> info@legalease.com</p>
+                    <p class="fadeIn"><b>Phone:</b> +91-9876543210</p>
+                    <p class="fadeIn"><b>Address:</b> Bhavnagar, Gujarat, India</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h5>All rights reserved. {% now "Y" %}</h5>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    {% block script %}{% endblock %}
+</body>
+
+</html>

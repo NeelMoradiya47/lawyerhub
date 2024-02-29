@@ -1,0 +1,134 @@
+#logo {
+    width: 75px;
+    height: 75px;
+}
+
+#toggle_button {
+    color: #fff;
+    border-color: #fff;
+}
+
+#title_shadow {
+    text-shadow: 2px 2px 5px #d1d1d1;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+header {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff !important;
+}
+
+.navbar-brand:hover {
+    color: #fff;
+}
+
+.navbar-nav {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.nav-link {
+    color: #fff !important;
+    text-decoration: none;
+    font-weight: bold;
+    /* Smooth color transition */
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+    color: #ececec !important;
+}
+
+footer {
+    background-color: #28a745;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Keyframe animation for fading in */
+@keyframes fadeIn {
+    from {
+        /* Start with opacity 0 */
+        opacity: 0;
+    }
+
+    to {
+        /* Fade in to full opacity */
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    /* Apply fadeIn animation over 1 second */
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes slideIn {
+    from {
+        /* Start 50px above its original position */
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        /* Slide in to original position */
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.slideIn {
+    animation: slideIn 1s ease-in-out;
+}
+
+@keyframes bounceIn {
+
+    from,
+    20%,
+    40%,
+    60%,
+    80%,
+    to {
+        /* Smooth timing function */
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        /* Start at original position */
+        transform: translate3d(0, 0, 0);
+    }
+
+    40%,
+    60% {
+        /* Change timing for bounce effect */
+        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        /* Bounce up */
+        transform: translate3d(0, -30px, 0);
+    }
+
+    80% {
+        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        /* Bounce up less */
+        transform: translate3d(0, -15px, 0);
+    }
+}
+
+.bounceIn {
+    animation: bounceIn 1s;
+}

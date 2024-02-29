@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Message</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 590px;
+            margin: auto;
+        }
+
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        h2 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+        }
+
+        h6 {
+            margin: 0;
+            font-size: 1em;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 10px 0;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 1em;
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>
+                <h2>
+                    Dear {{ first_name }}
+                    <hr>
+                    Your Account Information
+                </h2>
+
+                <h6>
+                    <b> Full Name : </b>{{ first_name }} {{ last_name }}
+                </h6>
+                <h6>
+                    <b> Your Email Address: </b>{{ email }}
+                </h6>
+
+                <p>Wait for Approval Email. Then You Can Easily Login to the system</p>
+                <a href='http://127.0.0.1:8000/login'>Login Here</a>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

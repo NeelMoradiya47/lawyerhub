@@ -1,0 +1,11 @@
+#alert {
+    width: max-content;
+}
+
+#update {
+    background-color: rgb(0, 170, 170);
+}
+
+.has-error .help-block {
+    color: red;
+}

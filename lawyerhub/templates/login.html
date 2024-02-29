@@ -1,0 +1,105 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/lawyer_edit_profile_style.css' %}">
+<link rel="stylesheet" type='text/css' href="{% static 'css/login_style.css' %}">
+{% endblock %}
+
+{% block main %}
+<section class="my-5">
+    {% if message %}
+    <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+        Sorry User...<strong>Wrong! Email or Password.</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    {% if no == 'lawyer' %}
+    <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+        <strong>You are not Lawyer!</strong> Please Login as Lawyer.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% elif no == 'user' %}
+    <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+        <strong>You are not User!</strong> Please Login as User.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% elif no == 'admin' %}
+    <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+        <strong>You are not Admin!</strong> Please Login as Admin.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Hello!!!</h2>
+                <hr id="hr">
+                <h4>Login here to find suitable lawyers or User Request</h4>
+            </div>
+
+            <div class="col-md-6">
+                <form action="login" method="POST" id="validateForm">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="email" class="my-1">Email</label>
+                        <input type="email" class="form-control mb-1" name="email" id="email"
+                            placeholder="Enter your valid email address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="num" class="my-1">Password</label>
+                        <input type="password" class="form-control mb-1" name="password" id="password"
+                            placeholder="Enter your valid password" required>
+                    </div>
+
+                    <input name="login" type="submit" class="btn btn-block btn-success mt-3" value="Login">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#validateForm').bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please enter your E-mail address'
+                        },
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please enter your Password '
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 6,
+                            message: 'Password Length must be 6 characters'
+                        },
+                    }
+                },
+            }
+        });
+    });
+</script>
+{% endblock %}

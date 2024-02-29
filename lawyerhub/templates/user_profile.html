@@ -1,0 +1,79 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/admin_dashboard_style.css' %}">
+<link rel="stylesheet" type='text/css' href="{% static 'css/lawyer_profile_style.css' %}">
+<style>
+    #alert {
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+<section>
+    {% if success %}
+    <script>
+        alert("{{ success }}");
+    </script>
+    {% endif %}
+
+    <div class="d-flex">
+        <div class="border sidebar">
+            <div class="list-group list-group-flush">
+                <a href="/user_edit_profile" class="list-group-item list-group-item-action sidebar">Edit Profile</a>
+                <a href="/user_booking" class="list-group-item list-group-item-action sidebar">My booking requests</a>
+                <a href="/update_password_user" class="list-group-item list-group-item-action sidebar">Update
+                    Password</a>
+            </div>
+        </div>
+
+        <div>
+            {% if suc %}
+            <div id="alert" class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                <strong>Welcome to your profile</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+
+            <div class="container mt-5 ps-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{% static 'images/upload/' %}{{ client_data.image }}" class="img-fluid mb-3"
+                            alt="profile picture">
+                        <h2>{{ client_data.first_name }} {{ client_data.last_name }}</span></h2>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6"><label for="contact_number"><b>Contact number:</b></label></div>
+                            <div class="col-md-6">
+                                <p>{{ client_data.contact_number }}</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6"><label for="email"><b>Email:</b></label></div>
+                            <div class="col-md-6">
+                                <p>{{ client_data.email }}</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6"><label for="practising_location"><b>Your location:</b></label></div>
+                            <div class="col-md-6">
+                                <p>{{ client_data.full_address }}</p>
+                                <p>{{ client_data.city }}</p>
+                                <p>{{ client_data.zip_code }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

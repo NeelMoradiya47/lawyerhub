@@ -1,0 +1,24 @@
+.img-fluid {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+}
+
+#alert {
+    margin-left: 15rem;
+}
+
+.col-custom-width {
+    width: 30%;
+}
+
+@media (max-width: 768px) {
+    .col-custom-width {
+        width: 100%;
+    }
+
+    #alert {
+        margin-left: 0;
+        text-align: center;
+    }
+}

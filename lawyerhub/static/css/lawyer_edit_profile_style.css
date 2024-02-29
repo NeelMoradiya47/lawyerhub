@@ -1,0 +1,8 @@
+#update {
+    background-color: rgb(0, 170, 170);
+}
+
+/* Apply red color to form validation message */
+.has-error .help-block {
+    color: red;
+}

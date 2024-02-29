@@ -1,0 +1,96 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}Lawyer Profile{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/admin_dashboard_style.css' %}">
+<link rel="stylesheet" type='text/css' href="{% static 'css/lawyer_profile_style.css' %}">
+{% endblock %}
+
+{% block main %}
+<section>
+    <div class="d-flex">
+        <div class="border sidebar">
+            <div class="list-group list-group-flush">
+                <a href="/lawyer_edit_profile" class="list-group-item list-group-item-action sidebar">Edit Profile</a>
+                <a href="/lawyer_booking" class="list-group-item list-group-item-action sidebar">Booking requests</a>
+                <a href="/update_password_lawyer" class="list-group-item list-group-item-action sidebar">Update
+                    Password</a>
+            </div>
+        </div>
+
+
+        <div class="container ms-5 my-4">
+            {% if suc %}
+            <div id="alert" class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+                <strong>Welcome to your profile</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+
+            <div class="row">
+                <div class="col-lg-6 col-custom-width">
+                    <img src="{% static 'images/upload/' %}{{ lawyer_data.image }}" class="img-fluid mb-3"
+                        alt="Profile Picture">
+                    <h2 class="mb-3">{{ lawyer_data.first_name }} {{ lawyer_data.last_name }}</span></h2>
+                    <h4 class="mb-5">{{ lawyer_data.speciality }}</h4>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-md-6 col-custom-width"><label for="contact_number"><b>Contact number
+                                    :</b></label></div>
+                        <div class="col-md-6">
+                            <p>{{ lawyer_data.contact_number }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-custom-width"><label for="email"><b>Email:</b></label></div>
+                        <div class="col-md-6">
+                            <p>{{ lawyer_data.email }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-custom-width"><label for="education"><b>Education:</b></label></div>
+                        <div class="col-md-6">
+                            <p>{{ lawyer_data.university_college }}</p>
+                            <p>{{ lawyer_data.degree }}</p>
+                            <p>{{ lawyer_data.passing_year }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-custom-width"><label for="practising_location"><b>Practising
+                                    location:</b></label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{ lawyer_data.full_address }}</p>
+                            <p>{{ lawyer_data.city }}</p>
+                            <p>{{ lawyer_data.zip_code }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-custom-width"><label for="practising_length"><b>Practising
+                                    length:</b></label></div>
+                        <div class="col-md-6">
+                            <p>{{ lawyer_data.practise_length }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-custom-width"><label for="case_handle"><b>Type of case
+                                    handles:</b></label></div>
+                        <div class="col-md-6">
+                            <p>{{ lawyer_data.case_handle }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

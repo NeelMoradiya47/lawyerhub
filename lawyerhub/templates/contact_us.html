@@ -1,0 +1,49 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/contact_us_style.css' %}">
+{% endblock %}
+
+{% block main %}
+<section id="background_image">
+    {% if thk %}
+    <script>
+        alert("{{ thk }}");
+    </script>
+    {% endif %}
+
+    <div class="container pt-3">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 offset-md-3 text-white">
+                <h1 class="mb-4 text-center" id="title_shadow">Feedback Form</h1>
+                <form method="post" action="contact_us" enctype="multipart/form-data" id="validateForm">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="name" class="mt-2 mb-1">Your Name</label>
+                        <input type="text" class="form-control mb-1" id="name" name="name" placeholder="Enter your name"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="mt-2 mb-1">Email address</label>
+                        <input type="email" class="form-control mb-1" id="email" name="email"
+                            placeholder="Enter your email address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="feedback" class="mt-2 mb-1">Feedback</label>
+                        <textarea class="form-control mb-1" id="feedback" name="feedback" rows="4"
+                            placeholder="Enter your feedback" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary my-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

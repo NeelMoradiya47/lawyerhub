@@ -1,0 +1,13 @@
+.alert {
+    width: fit-content;
+    margin: auto;
+}
+
+#hr {
+    width: 100%;
+    max-width: 540px;
+}
+
+footer {
+    margin-top: 4.05rem;
+}

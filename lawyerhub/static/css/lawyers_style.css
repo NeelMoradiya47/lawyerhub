@@ -1,0 +1,32 @@
+#hr {
+    width: 100%;
+    max-width: 71.5rem;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+#card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+#card:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 992px) {
+    #padding {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #card {
+        width: 100%;
+    }
+}
