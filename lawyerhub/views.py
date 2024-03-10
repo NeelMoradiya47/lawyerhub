@@ -23,20 +23,14 @@ def index(request):
     lawyer_data = Lawyer.objects.filter(status='Active').values()
     
     msg = request.session.get('msg', '')
-    
     if msg == 'lawyer':
         return render(request, 'index.html', {'lawyer_data': lawyer_data, 'msg': msg})
     elif msg == 'user':
         return render(request, 'index.html', {'lawyer_data': lawyer_data, 'msg': msg})
     elif msg == 'admin':
         return render(request, 'index.html', {'lawyer_data': lawyer_data, 'msg': msg})
-    else:
-        pass
-    
-    if msg == 'logout':
+    else:    
         return render(request, 'index.html', {'lawyer_data': lawyer_data})
-    
-    return render(request, 'index.html', {'lawyer_data': lawyer_data})
 
 def lawyers(request):
     lawyer_data = Lawyer.objects.filter(status='Active').values()
@@ -44,19 +38,15 @@ def lawyers(request):
     msg = request.session.get('msg', '')
     if msg == 'lawyer' or msg == 'user' or msg == 'admin':
         return render(request, 'lawyers.html', {'lawyer_data': lawyer_data, 'msg': msg})
-    if msg == 'logout':
+    else:
         return render(request, 'lawyers.html', {'lawyer_data': lawyer_data})
-
-    return render(request, 'lawyers.html', {'lawyer_data': lawyer_data})
 
 def about_us(request):
     msg = request.session.get('msg', '')
     if msg == 'lawyer' or msg == 'user' or msg == 'admin':
         return render(request, 'about_us.html', {'msg': msg})
-    if msg == 'logout':
+    else:
         return render(request, 'about_us.html')
-    
-    return render(request, 'about_us.html')
 
 def contact_us(request):
     if request.method == 'POST':
@@ -73,10 +63,8 @@ def contact_us(request):
     msg = request.session.get('msg', '')
     if msg == 'lawyer' or msg == 'user' or msg == 'admin':
         return render(request, 'contact_us.html', {'msg': msg})
-    if msg == 'logout':
+    else:
         return render(request, 'contact_us.html')
-
-    return render(request, 'contact_us.html')
 
 def search_lawyer(request):
     if request.method == 'POST':
@@ -97,16 +85,13 @@ def search_lawyer(request):
     msg = request.session.get('msg', '')
     if msg == 'lawyer' or msg == 'user' or msg == 'admin':
         return render(request, 'search_lawyer.html', {'msg': msg})
-    if msg == 'logout':
+    else:
         return render(request, 'search_lawyer.html')
-
-    return render(request, 'search_lawyer.html')
 
 def single_lawyer(request, l_id):
     lawyer_data = Lawyer.objects.filter(lawyer_id=l_id, status='Active').values().first()
     
     msg = request.session.get('msg', '')
-    
     if msg == 'lawyer' or msg == 'user' or msg == 'admin':
         if request.method == 'POST':
             f_date = request.POST.get('date')
@@ -148,11 +133,8 @@ def single_lawyer(request, l_id):
                 return redirect('lawyerhub:user_booking')
         
         return render(request, 'single_lawyer.html', {'lawyer_data': lawyer_data, 'msg': msg})
-    
-    if msg == 'logout':
+    else:
         return render(request, 'single_lawyer.html', {'lawyer_data': lawyer_data})
-
-    return render(request, 'single_lawyer.html', {'lawyer_data': lawyer_data})
 
 def send_message_admin(request):
     # Nexmo credentials
@@ -243,48 +225,42 @@ def lawyer_register(request):
             error = "Sorry Lawyer!! This Email already exists. Please fill up the form again."
             return render(request, 'lawyer_register.html', {'passing_years': passing_years, 'error': error})
         
-        ok_flag = True
-        if ok_flag:
-            if 'image' in request.FILES and image:
-                target_dir = "lawyerhub/static/images/upload/"
-                new_name = f"{date.today().strftime('%Y%m%d%H%M%S')}_{image.name}"
-                target_file = os.path.join(target_dir, new_name)
-                upload_ok = 1
-                image_file_type = image.name.split('.')[-1].lower()
-                
-                if not image.content_type.startswith('image'):
-                    upload_ok = 0
-                    message = "File must be an image"
-                    return render(request, 'lawyer_register.html', {'passing_years': passing_years, 'message': message})
-                    
-                if os.path.exists(target_file):
-                    upload_ok = 0
-                    message = "File name is already occupied"
-                    return render(request, 'lawyer_register.html', {'passing_years': passing_years, 'message': message})
-                    
-                if image.size > 5000000:
-                    upload_ok = 0
-                    message = "File size must be less than 5MB"
-                    return render(request, 'lawyer_register.html', {'passing_years': passing_years, 'message': message})
-                    
-                if image_file_type not in ["jpg", "jpeg", "png", "gif"]:
-                    upload_ok = 0
-                    message = "File extension must be 'jpg', 'jpeg', 'png', and 'gif'"
-                    return render(request, 'lawyer_register.html', {'passing_years': passing_years, 'message': message})
-                    
-                if upload_ok == 0:
+        if 'image' in request.FILES and image:
+            target_dir = "lawyerhub/static/images/upload/"
+            new_name = f"{date.today().strftime('%Y%m%d%H%M%S')}_{image.name}"
+            target_file = os.path.join(target_dir, new_name)
+            upload_ok = 1
+            image_file_type = image.name.split('.')[-1].lower()
+            
+            if not image.content_type.startswith('image'):
+                upload_ok = 0
+                message = "File must be an image"
+                return render(request, 'lawyer_register.html', {'passing_years': passing_years, 'message': message})  
+            elif os.path.exists(target_file):
+                upload_ok = 0
+                message = "File name is already occupied"
+                return render(request, 'lawyer_register.html', {'passing_years': passing_years, 'message': message})  
+            elif image.size > 5000000:
+                upload_ok = 0
+                message = "File size must be less than 5MB"
+                return render(request, 'lawyer_register.html', {'passing_years': passing_years, 'message': message})  
+            elif image_file_type not in ["jpg", "jpeg", "png"]:
+                upload_ok = 0
+                message = "File extension must be 'jpg', 'jpeg', and 'png'"
+                return render(request, 'lawyer_register.html', {'passing_years': passing_years, 'message': message})  
+            elif upload_ok == 0:
+                message = "Error occurred while uploading image please try again!!!"
+                return render(request, 'lawyer_register.html', {'passing_years': passing_years, 'message': message})
+            else:
+                if upload_ok == 1:
+                    with open(target_file, 'wb+') as destination:
+                        for chunk in image.chunks():
+                            destination.write(chunk)
+                else:
                     message = "Error occurred while uploading image please try again!!!"
                     return render(request, 'lawyer_register.html', {'passing_years': passing_years, 'message': message})
-                else:
-                    if upload_ok == 1:
-                        with open(target_file, 'wb+') as destination:
-                            for chunk in image.chunks():
-                                destination.write(chunk)
-                    else:
-                        message = "Error occurred while uploading image please try again!!!"
-                        return render(request, 'lawyer_register.html', {'passing_years': passing_years, 'message': message})
-            else:
-                new_name = request.POST.get['image']
+        else:
+            new_name = request.POST.get['image']
         
         lawyer = Lawyer.objects.create(lawyer_id=lawyer_id, contact_number=contact_number, university_college=university_college, degree=degree, passing_year=passing_year, full_address=full_address, city=city, zip_code=zip_code, practise_length=practise_length, case_handle=','.join(case_handle), speciality=speciality, image=new_name, first_name=first_name, last_name=last_name, email=email, password=password, status='Pending', role='Lawyer')
             
@@ -293,8 +269,8 @@ def lawyer_register(request):
             send_message_admin(request)
             success = "Thank you lawyer! You are successfully registered as Lawyer"
             return render(request, 'lawyer_register.html', {'passing_years': passing_years, 'success': success})
-            
-    return render(request, 'lawyer_register.html', {'passing_years': passing_years})
+    else:
+        return render(request, 'lawyer_register.html', {'passing_years': passing_years})
 
 def user_register(request):
     if request.method == 'POST':
@@ -313,70 +289,62 @@ def user_register(request):
             error = "Sorry User!! This Email already exists. Please fill up the form again."
             return render(request, 'user_register.html', {'error': error})
         
-        ok_flag = True
-        if ok_flag:
-            if 'image' in request.FILES and image:
-                target_dir = "lawyerhub/static/images/upload/"
-                new_name = f"{date.today().strftime('%Y%m%d%H%M%S')}_{image.name}"
-                target_file = os.path.join(target_dir, new_name)
-                upload_ok = 1
-                image_file_type = image.name.split('.')[-1].lower()
-                
-                if not image.content_type.startswith('image'):
-                    upload_ok = 0
-                    message = "File must be an image"
-                    return render(request, 'lawyer_register.html', {'message': message})
-                    
-                if os.path.exists(target_file):
-                    upload_ok = 0
-                    message = "File name is already occupied"
-                    return render(request, 'lawyer_register.html', {'message': message})
-                    
-                if image.size > 5000000:
-                    upload_ok = 0
-                    message = "File size must be less than 5MB"
-                    return render(request, 'lawyer_register.html', {'message': message})
-                    
-                if image_file_type not in ["jpg", "jpeg", "png", "gif"]:
-                    upload_ok = 0
-                    message = "File extension must be 'jpg', 'jpeg', 'png', and 'gif'"
-                    return render(request, 'lawyer_register.html', {'message': message})
-                    
-                if upload_ok == 0:
-                    message = "Error occurred while uploading image please try again!!!"
-                    return render(request, 'lawyer_register.html', {'message': message})
-                else:
-                    if upload_ok == 1:
-                        with open(target_file, 'wb+') as destination:
-                            for chunk in image.chunks():
-                                destination.write(chunk)
-                    else:
-                        message = "Error occurred while uploading image please try again!!!"
-                        return render(request, 'lawyer_register.html', {'message': message})
+        if 'image' in request.FILES and image:
+            target_dir = "lawyerhub/static/images/upload/"
+            new_name = f"{date.today().strftime('%Y%m%d%H%M%S')}_{image.name}"
+            target_file = os.path.join(target_dir, new_name)
+            upload_ok = 1
+            image_file_type = image.name.split('.')[-1].lower()
+            
+            if not image.content_type.startswith('image'):
+                upload_ok = 0
+                message = "File must be an image"
+                return render(request, 'user_register.html', {'message': message})  
+            elif os.path.exists(target_file):
+                upload_ok = 0
+                message = "File name is already occupied"
+                return render(request, 'user_register.html', {'message': message})  
+            elif image.size > 5000000:
+                upload_ok = 0
+                message = "File size must be less than 5MB"
+                return render(request, 'user_register.html', {'message': message})  
+            elif image_file_type not in ["jpg", "jpeg", "png"]:
+                upload_ok = 0
+                message = "File extension must be 'jpg', 'jpeg', and 'png'"
+                return render(request, 'user_register.html', {'message': message})  
+            elif upload_ok == 0:
+                message = "Error occurred while uploading image please try again!!!"
+                return render(request, 'user_register.html', {'message': message})
             else:
-                new_name = request.POST.get['image']
+                if upload_ok == 1:
+                    with open(target_file, 'wb+') as destination:
+                        for chunk in image.chunks():
+                            destination.write(chunk)
+                else:
+                    message = "Error occurred while uploading image please try again!!!"
+                    return render(request, 'user_register.html', {'message': message})
+        else:
+            new_name = request.POST.get['image']
         
         client = Client.objects.create(client_id=client_id, contact_number=contact_number, full_address=full_address, city=city, zip_code=zip_code, image=new_name, email=email, first_name=first_name, last_name=last_name, password=password, role='User', status='Active')
             
         if client:
             send_email_lawyer_and_user(request)
             success = "Thank you user! You are successfully registered as User"
-            return render(request, 'user_profile.html', {'success': success})
-
-    return render(request, 'user_register.html')
+            return render(request, 'user_register.html', {'success': success})
+    else:
+        return render(request, 'user_register.html')
 
 def login(request):
     no = request.session.get('no')
-    
     if 'no' in request.session:
-            del request.session['no']
+        del request.session['no']
     
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
 
         lawyer_user = Lawyer.objects.filter(email=email, password=password, status='Active').first()
-
         if lawyer_user:
             request.session['lawyer_id'] = lawyer_user.lawyer_id
             request.session['login'] = True
@@ -387,7 +355,6 @@ def login(request):
                 return redirect('lawyerhub:lawyer_profile')
 
         client_user = Client.objects.filter(email=email, password=password, status='Active').first()
-
         if client_user:
             request.session['client_id'] = client_user.client_id
             request.session['login'] = True
@@ -398,7 +365,6 @@ def login(request):
                 return redirect('lawyerhub:user_profile')
 
         admin_user = Administrator.objects.filter(email=email, password=password, status='Active').first()
-
         if admin_user:
             request.session['login'] = True
             
@@ -414,19 +380,16 @@ def login(request):
 
 def logout(request):
     request.session['login'] = False
-    
     if request.session['login'] == False:
         request.session['msg'] = "logout"
         
-    return render(request, 'login.html')
+    return redirect('lawyerhub:login')
 
 def lawyer_profile(request):
     msg = request.session.get('msg', '')
-    
     if msg == "lawyer":
         lawyer_id = request.session.get('lawyer_id')
         suc = request.session.get('suc')
-        
         if 'suc' in request.session:
             del request.session['suc']
         
@@ -441,7 +404,6 @@ def lawyer_profile(request):
 
 def lawyer_edit_profile(request):
     msg = request.session.get('msg', '')
-
     if msg == "lawyer":
         passing_years = range(datetime.now().year, 1999, -1)
         
@@ -478,60 +440,53 @@ def lawyer_edit_profile(request):
                 if os.path.exists(target_file):
                     os.remove(target_file)
             
-            ok_flag = True
-            if ok_flag:
-                if 'image' in request.FILES and form_data['image']:
-                    target_dir = "lawyerhub/static/images/upload/"
-                    new_name = f"{date.today().strftime('%Y%m%d%H%M%S')}_{form_data['image'].name}"
-                    target_file = os.path.join(target_dir, new_name)
-                    upload_ok = 1
-                    image_file_type = form_data['image'].name.split('.')[-1].lower()
-                    
-                    if not form_data['image'].content_type.startswith('image'):
-                        upload_ok = 0
-                        message = "File must be an image"
-                        return render(request, 'lawyer_edit_profile.html', {'passing_years': passing_years, 'message': message, 'msg': msg})
-                        
-                    if os.path.exists(target_file):
-                        upload_ok = 0
-                        message = "File name is already occupied"
-                        return render(request, 'lawyer_edit_profile.html', {'passing_years': passing_years, 'message': message, 'msg': msg})
-                        
-                    if form_data['image'].size > 5000000:
-                        upload_ok = 0
-                        message = "File size must be less than 5MB"
-                        return render(request, 'lawyer_edit_profile.html', {'passing_years': passing_years, 'message': message, 'msg': msg})
-                        
-                    if image_file_type not in ["jpg", "jpeg", "png", "gif"]:
-                        upload_ok = 0
-                        message = "File extension must be 'jpg', 'jpeg', 'png', and 'gif'"
-                        return render(request, 'lawyer_edit_profile.html', {'passing_years': passing_years, 'message': message, 'msg': msg})
-                        
-                    if upload_ok == 0:
+            if 'image' in request.FILES and form_data['image']:
+                target_dir = "lawyerhub/static/images/upload/"
+                new_name = f"{date.today().strftime('%Y%m%d%H%M%S')}_{form_data['image'].name}"
+                target_file = os.path.join(target_dir, new_name)
+                upload_ok = 1
+                image_file_type = form_data['image'].name.split('.')[-1].lower()
+                
+                if not form_data['image'].content_type.startswith('image'):
+                    upload_ok = 0
+                    message = "File must be an image"
+                    return render(request, 'lawyer_edit_profile.html', {'passing_years': passing_years, 'message': message, 'msg': msg})  
+                elif os.path.exists(target_file):
+                    upload_ok = 0
+                    message = "File name is already occupied"
+                    return render(request, 'lawyer_edit_profile.html', {'passing_years': passing_years, 'message': message, 'msg': msg})  
+                elif form_data['image'].size > 5000000:
+                    upload_ok = 0
+                    message = "File size must be less than 5MB"
+                    return render(request, 'lawyer_edit_profile.html', {'passing_years': passing_years, 'message': message, 'msg': msg})  
+                elif image_file_type not in ["jpg", "jpeg", "png", "gif"]:
+                    upload_ok = 0
+                    message = "File extension must be 'jpg', 'jpeg', 'png', and 'gif'"
+                    return render(request, 'lawyer_edit_profile.html', {'passing_years': passing_years, 'message': message, 'msg': msg})  
+                elif upload_ok == 0:
+                    message = "Error occurred while uploading image please try again!!!"
+                    return render(request, 'lawyer_edit_profile.html', {'passing_years': passing_years, 'message': message, 'msg': msg})
+                else:
+                    if upload_ok == 1:
+                        with open(target_file, 'wb+') as destination:
+                            for chunk in form_data['image'].chunks():
+                                destination.write(chunk)
+                    else:
                         message = "Error occurred while uploading image please try again!!!"
                         return render(request, 'lawyer_edit_profile.html', {'passing_years': passing_years, 'message': message, 'msg': msg})
-                    else:
-                        if upload_ok == 1:
-                            with open(target_file, 'wb+') as destination:
-                                for chunk in form_data['image'].chunks():
-                                    destination.write(chunk)
-                        else:
-                            message = "Error occurred while uploading image please try again!!!"
-                            return render(request, 'lawyer_edit_profile.html', {'passing_years': passing_years, 'message': message, 'msg': msg})
-                else:
-                    new_name = form_data.get('image', '')
+            else:
+                new_name = form_data.get('image', '')
                     
             form_data['image'] = new_name
             
             non_empty_fields = {key: value for key, value in form_data.items() if value != '' and value is not None}
 
             lawyer = Lawyer.objects.filter(lawyer_id=lawyer_id).update(**non_empty_fields)
-            
             if lawyer > 0:
                 done = "done"
                 return render(request, 'lawyer_edit_profile.html', {'passing_years': passing_years, 'done': done, 'msg': msg})
-            
-        return render(request, 'lawyer_edit_profile.html', {'passing_years': passing_years, 'msg': msg})
+        else:    
+            return render(request, 'lawyer_edit_profile.html', {'passing_years': passing_years, 'msg': msg})
     else:
         request.session['no'] = "lawyer"
         return redirect('lawyerhub:login')
@@ -540,7 +495,6 @@ def lawyer_booking(request):
     msg = request.session.get('msg', '')
     if msg == "lawyer":
         lawyer_id = request.session.get('lawyer_id')
-        
         booking_data = Booking.objects.filter(lawyer_id=lawyer_id).all().values()
         
         return render(request, 'lawyer_booking.html', {'booking_data': booking_data, 'msg': msg})
@@ -548,50 +502,42 @@ def lawyer_booking(request):
         request.session['no'] = "lawyer"
         return redirect('lawyerhub:login')
 
-def accept_request(request, booking_id):
-    lawyer_id = request.session.get('lawyer_id')
+def accept_request(booking_id):
+    get_ci = Booking.objects.filter(booking_id=booking_id).all()
+    Booking.objects.filter(booking_id=booking_id).update(status='Accepted')
     
-    if booking_id:
-        get_ci = Booking.objects.filter(booking_id=booking_id).all()
-        Booking.objects.filter(booking_id=booking_id).update(status='Accepted')
+    for i in get_ci.values():
+        ci = i['client_id']
         
-        for i in get_ci.values():
-            ci = i['client_id']
+    if ci:
+        cl = Client.objects.filter(client_id=ci).all()
+        
+        for j in cl.values():
+            first_name = j['first_name']
+            last_name = j['last_name']
+            email = j['email']
             
-        if ci:
-            cl = Client.objects.filter(client_id=ci).all()
+            subject = "Notification For Account Information"
+            message = f"{first_name} {last_name} your booking request is accepted."
+
+            email_message = EmailMessage(
+                subject,
+                message,
+                "neelmoradiya56@gmail.com",
+                [email],
+            )
+
+            try:
+                email_message.send()
+            except Exception as e:
+                pass
             
-            for j in cl.values():
-                first_name = j['first_name']
-                last_name = j['last_name']
-                email = j['email']
-                
-                subject = "Notification For Account Information"
-                message = f"{first_name} {last_name} your booking request is accepted."
-
-                email_message = EmailMessage(
-                    subject,
-                    message,
-                    "neelmoradiya56@gmail.com",
-                    [email],
-                )
-
-                try:
-                    email_message.send()
-                except Exception as e:
-                    pass
-                
-        return redirect('lawyerhub:lawyer_booking')
-    
-    booking_data = Booking.objects.filter(lawyer_id=lawyer_id).all().values()
-    
-    return render(request, 'lawyer_booking.html', {'booking_data': booking_data})
+    return redirect('lawyerhub:lawyer_booking')
 
 def update_password_lawyer(request):
     msg = request.session.get('msg', '')
     if msg == "lawyer":
         lawyer_id = request.session.get('lawyer_id')
-        
         if lawyer_id:
             lawyer_data = Lawyer.objects.filter(lawyer_id=lawyer_id).values().first()
             password = lawyer_data.get('password', 'Password not available')
@@ -604,22 +550,20 @@ def update_password_lawyer(request):
             if current_password != password:
                 error = "Not valid"
                 return render(request, 'update_password_lawyer.html', {'error': error, 'msg': msg})
-            
-            if new_password == password:
+            elif new_password == password:
                 error2 = "already exists"
                 return render(request, 'update_password_lawyer.html', {'error2': error2, 'msg': msg})
-            
-            if new_password != confirm_password:
+            elif new_password != confirm_password:
                 error3 = "must be same"
                 return render(request, 'update_password_lawyer.html', {'error3': error3, 'msg': msg})
-            
-            lawyer = Lawyer.objects.filter(lawyer_id=lawyer_id).update(password=new_password)
-            
-            if lawyer > 0:
-                done = "done"
-                return render(request, 'update_password_lawyer.html', {'done': done, 'msg': msg})
-        
-        return render(request, 'update_password_lawyer.html', {'msg': msg})
+            else:
+                lawyer = Lawyer.objects.filter(lawyer_id=lawyer_id).update(password=new_password)
+                
+                if lawyer > 0:
+                    done = "done"
+                    return render(request, 'update_password_lawyer.html', {'done': done, 'msg': msg})
+        else:
+            return render(request, 'update_password_lawyer.html', {'msg': msg})
     else:
         request.session['no'] = "lawyer"
         return redirect('lawyerhub:login')
@@ -629,7 +573,6 @@ def user_profile(request):
     if msg == "user":
         client_id = request.session.get('client_id')
         suc = request.session.get('suc')
-        
         if 'suc' in request.session:
             del request.session['suc']
         
@@ -670,60 +613,53 @@ def user_edit_profile(request):
                 if os.path.exists(target_file):
                     os.remove(target_file)
                     
-            ok_flag = True
-            if ok_flag:
-                if 'image' in request.FILES and form_data['image']:
-                    target_dir = "lawyerhub/static/images/upload/"
-                    new_name = f"{date.today().strftime('%Y%m%d%H%M%S')}_{form_data['image'].name}"
-                    target_file = os.path.join(target_dir, new_name)
-                    upload_ok = 1
-                    image_file_type = form_data['image'].name.split('.')[-1].lower()
-                    
-                    if not form_data['image'].content_type.startswith('image'):
-                        upload_ok = 0
-                        message = "File must be an image"
-                        return render(request, 'user_edit_profile.html', {'message': message, 'msg': msg})
-                        
-                    if os.path.exists(target_file):
-                        upload_ok = 0
-                        message = "File name is already occupied"
-                        return render(request, 'user_edit_profile.html', {'message': message, 'msg': msg})
-                        
-                    if form_data['image'].size > 5000000:
-                        upload_ok = 0
-                        message = "File size must be less than 5MB"
-                        return render(request, 'user_edit_profile.html', {'message': message, 'msg': msg})
-                        
-                    if image_file_type not in ["jpg", "jpeg", "png", "gif"]:
-                        upload_ok = 0
-                        message = "File extension must be 'jpg', 'jpeg', 'png', and 'gif'"
-                        return render(request, 'user_edit_profile.html', {'message': message, 'msg': msg})
-                        
-                    if upload_ok == 0:
+            if 'image' in request.FILES and form_data['image']:
+                target_dir = "lawyerhub/static/images/upload/"
+                new_name = f"{date.today().strftime('%Y%m%d%H%M%S')}_{form_data['image'].name}"
+                target_file = os.path.join(target_dir, new_name)
+                upload_ok = 1
+                image_file_type = form_data['image'].name.split('.')[-1].lower()
+                
+                if not form_data['image'].content_type.startswith('image'):
+                    upload_ok = 0
+                    message = "File must be an image"
+                    return render(request, 'user_edit_profile.html', {'message': message, 'msg': msg})  
+                elif os.path.exists(target_file):
+                    upload_ok = 0
+                    message = "File name is already occupied"
+                    return render(request, 'user_edit_profile.html', {'message': message, 'msg': msg})  
+                elif form_data['image'].size > 5000000:
+                    upload_ok = 0
+                    message = "File size must be less than 5MB"
+                    return render(request, 'user_edit_profile.html', {'message': message, 'msg': msg})  
+                elif image_file_type not in ["jpg", "jpeg", "png", "gif"]:
+                    upload_ok = 0
+                    message = "File extension must be 'jpg', 'jpeg', 'png', and 'gif'"
+                    return render(request, 'user_edit_profile.html', {'message': message, 'msg': msg})  
+                elif upload_ok == 0:
+                    message = "Error occurred while uploading image please try again!!!"
+                    return render(request, 'user_edit_profile.html', {'message': message, 'msg': msg})
+                else:
+                    if upload_ok == 1:
+                        with open(target_file, 'wb+') as destination:
+                            for chunk in form_data['image'].chunks():
+                                destination.write(chunk)
+                    else:
                         message = "Error occurred while uploading image please try again!!!"
                         return render(request, 'user_edit_profile.html', {'message': message, 'msg': msg})
-                    else:
-                        if upload_ok == 1:
-                            with open(target_file, 'wb+') as destination:
-                                for chunk in form_data['image'].chunks():
-                                    destination.write(chunk)
-                        else:
-                            message = "Error occurred while uploading image please try again!!!"
-                            return render(request, 'user_edit_profile.html', {'message': message, 'msg': msg})
-                else:
-                    new_name = form_data.get('image', '')
+            else:
+                new_name = form_data.get('image', '')
                     
             form_data['image'] = new_name
             
             non_empty_fields = {key: value for key, value in form_data.items() if value != '' and value is not None}
 
             client = Client.objects.filter(client_id=client_id).update(**non_empty_fields)
-            
             if client > 0:
                 done = "done"
                 return render(request, 'user_edit_profile.html', {'done': done, 'msg': msg})
-
-        return render(request, 'user_edit_profile.html', {'msg': msg})
+        else:
+            return render(request, 'user_edit_profile.html', {'msg': msg})
     else:
         request.session['no'] = "user"
         return redirect('lawyerhub:login')
@@ -733,7 +669,6 @@ def user_booking(request):
     if msg == "user":
         client_id = request.session.get('client_id')
         success = request.session.get('success')
-        
         if 'success' in request.session:
             del request.session['success']
         
@@ -761,22 +696,19 @@ def update_password_user(request):
             if current_password != password:
                 error = "Not valid"
                 return render(request, 'update_password_user.html', {'error': error, 'msg': msg})
-            
-            if new_password == password:
+            elif new_password == password:
                 error2 = "already exists"
                 return render(request, 'update_password_user.html', {'error2': error2, 'msg': msg})
-            
-            if new_password != confirm_password:
+            elif new_password != confirm_password:
                 error3 = "must be same"
                 return render(request, 'update_password_user.html', {'error3': error3, 'msg': msg})
-            
-            client = Client.objects.filter(client_id=client_id).update(password=new_password)
-            
-            if client > 0:
-                done = "done"
-                return render(request, 'update_password_user.html', {'done': done, 'msg': msg})
-        
-        return render(request, 'update_password_user.html', {'msg': msg})
+            else:
+                client = Client.objects.filter(client_id=client_id).update(password=new_password)
+                if client > 0:
+                    done = "done"
+                    return render(request, 'update_password_user.html', {'done': done, 'msg': msg})
+        else:
+            return render(request, 'update_password_user.html', {'msg': msg})
     else:
         request.session['no'] = "user"
         return redirect('lawyerhub:login')
@@ -785,7 +717,6 @@ def admin_dashboard(request):
     msg = request.session.get('msg', '')
     if msg == "admin":
         suc = request.session.get('suc')
-        
         if 'suc' in request.session:
             del request.session['suc']
             
@@ -821,11 +752,8 @@ def admin_user(request):
         return redirect('lawyerhub:login')
  
 def block_user(request, c_id):
-    user_data = Client.objects.all().values()
-    
     client = Client.objects.filter(client_id=c_id).all()
     update = Client.objects.filter(client_id=c_id).update(status='Block')
-    
     if update:
         for i in client.values():
             first_name = i['first_name']
@@ -848,15 +776,10 @@ def block_user(request, c_id):
             pass
         
         return redirect('lawyerhub:admin_user')
-    
-    return render(request, 'admin_user.html', {'user_data': user_data})
 
 def unblock_user(request, c_id):
-    user_data = Client.objects.all().values()
-    
     client = Client.objects.filter(client_id=c_id).all()
     update = Client.objects.filter(client_id=c_id).update(status='Active')
-    
     if update:
         for i in client.values():
             first_name = i['first_name']
@@ -879,8 +802,6 @@ def unblock_user(request, c_id):
             pass
         
         return redirect('lawyerhub:admin_user')
-    
-    return render(request, 'admin_user.html', {'user_data': user_data})
 
 def admin_lawyer(request):
     msg = request.session.get('msg', '')
@@ -921,13 +842,8 @@ def send_confirm_mail_lawyer(request, lawyer):
         pass
 
 def approve_lawyer(request, law_id):
-    lawyer_data = Lawyer.objects.all().values()
-    
-    if law_id:
-        lawyer = Lawyer.objects.filter(lawyer_id=law_id).values().first()
-        
-        if lawyer:            
-            send_confirm_mail_lawyer(request, lawyer)
-            Lawyer.objects.filter(lawyer_id=law_id).update(status='Active')
-        
-    return render(request, 'admin_lawyer.html', {'lawyer_data': lawyer_data})
+    lawyer = Lawyer.objects.filter(lawyer_id=law_id).values().first()
+    if lawyer:            
+        send_confirm_mail_lawyer(request, lawyer)
+        Lawyer.objects.filter(lawyer_id=law_id).update(status='Active')
+        return redirect('lawyerhub:admin_lawyer')
