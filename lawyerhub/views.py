@@ -502,7 +502,7 @@ def lawyer_booking(request):
         request.session['no'] = "lawyer"
         return redirect('lawyerhub:login')
 
-def accept_request(booking_id):
+def accept_request(request, booking_id):
     get_ci = Booking.objects.filter(booking_id=booking_id).all()
     Booking.objects.filter(booking_id=booking_id).update(status='Accepted')
     
