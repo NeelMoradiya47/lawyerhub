@@ -1,0 +1,56 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}Feedbacks{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/admin_dashboard_style.css' %}">
+<style>
+    #last_link {
+        margin-bottom: 9.35rem;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+<section>
+    <div class="d-flex">
+        <div class="border sidebar">
+            <div class="list-group list-group-flush">
+                <a href="/admin_dashboard" class="list-group-item list-group-item-action sidebar">Admin dashboard</a>
+                <a href="/admin_lawyer" class="list-group-item list-group-item-action sidebar">Registered lawyers</a>
+                <a href="/admin_user" class="list-group-item list-group-item-action sidebar">Registered Users</a>
+                <a href="/feedbacks" class="list-group-item list-group-item-action sidebar" id="last_link">Feedbacks</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mx-md-auto my-4 table-responsive">
+                    <table class="table table-bordered table-primary align-middle">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Feedback</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for feedback in feedbacks %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ feedback.name }}</td>
+                                <td>{{ feedback.email }}</td>
+                                <td>{{ feedback.feedback }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

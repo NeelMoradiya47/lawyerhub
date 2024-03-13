@@ -16,8 +16,8 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
-header {
-    background-color: #28a745;
+header, footer {
+    background-color: #8a2be2;
     color: #fff;
     padding: 10px;
 }
@@ -58,10 +58,7 @@ nav {
 }
 
 footer {
-    background-color: #28a745;
-    color: #fff;
     text-align: center;
-    padding: 10px;
 }
 
 /* Keyframe animation for fading in */

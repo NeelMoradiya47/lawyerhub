@@ -847,3 +847,13 @@ def approve_lawyer(request, law_id):
         send_confirm_mail_lawyer(request, lawyer)
         Lawyer.objects.filter(lawyer_id=law_id).update(status='Active')
         return redirect('lawyerhub:admin_lawyer')
+
+def feedbacks(request):
+    msg = request.session.get('msg', '')
+    if msg == "admin":
+        feedbacks = Feedback.objects.all().values()
+        
+        return render(request, 'feedbacks.html', {'feedbacks': feedbacks, 'msg': msg})
+    else:
+        request.session['no'] = "admin"
+        return redirect('lawyerhub:login')

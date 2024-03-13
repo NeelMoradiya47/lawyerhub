@@ -29,4 +29,5 @@ urlpatterns = [
     path('unblock_user/<str:c_id>', views.unblock_user, name='unblock_user'),
     path('admin_lawyer', views.admin_lawyer, name='admin_lawyer'),
     path('approve_lawyer/<str:law_id>', views.approve_lawyer, name='approve_lawyer'),
+    path('feedbacks', views.feedbacks, name='feedbacks'),
 ]

@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+admin.site.site_header = "Legal Services with LegalEase Admin Panel"
+admin.site.site_title = "Admin Panel"
+admin.site.index_title = "Welcome to Legal Services with LegalEase Admin Panel"
+
 urlpatterns = [
     path('', include('lawyerhub.urls')),
     path('lawyers/', include('lawyerhub.urls')),
@@ -43,5 +47,6 @@ urlpatterns = [
     path('unblock_user/', include('lawyerhub.urls')),
     path('admin_lawyer/', include('lawyerhub.urls')),
     path('approve_lawyer/', include('lawyerhub.urls')),
+    path('feedbacks/', include('lawyerhub.urls')),
     path('admin/', admin.site.urls),
 ]
