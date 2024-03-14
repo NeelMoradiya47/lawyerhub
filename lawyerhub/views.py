@@ -102,13 +102,16 @@ def single_lawyer(request, l_id):
             client_names = Client.objects.filter(client_id=client_id).values().first()
             user_first_name = client_names.get('first_name', 'first_name not available')
             user_last_name = client_names.get('last_name', 'last_name not available')
+            user_contact_no = client_names.get('contact_number', 'contact_number not available')
+            user_email = client_names.get('email', 'email not available')
             
             lawyer_names = Lawyer.objects.filter(lawyer_id=lawyer_id).values().first()
             lawyer_first_name = lawyer_names.get('first_name', 'first_name not available')
             lawyer_last_name = lawyer_names.get('last_name', 'last_name not available')
+            lawyer_contact_no = lawyer_names.get('contact_number', 'contact_number not available')
             lawyer_email = lawyer_names.get('email', 'email not available')
 
-            booking_data = Booking.objects.create(date=f_date, description=description, client_id=client_id, lawyer_id=lawyer_id, status='Pending', user_first_name=user_first_name, user_last_name=user_last_name, lawyer_first_name=lawyer_first_name, lawyer_last_name=lawyer_last_name)
+            booking_data = Booking.objects.create(date=f_date, description=description, client_id=client_id, lawyer_id=lawyer_id, status='Pending', user_first_name=user_first_name, user_last_name=user_last_name, user_contact_number=user_contact_no, user_email=user_email, lawyer_first_name=lawyer_first_name, lawyer_last_name=lawyer_last_name, lawyer_contact_number=lawyer_contact_no, lawyer_email=lawyer_email)
             
             if booking_data:
                 subject = "Notification For Account Information"

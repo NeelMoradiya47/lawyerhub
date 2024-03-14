@@ -37,9 +37,11 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
+                                <th>Lawyer Name</th>
+                                <th>Lawyer Contact No</th>
+                                <th>Lawyer Email</th>
                                 <th>Date</th>
                                 <th>Description</th>
-                                <th>Lawyer Name</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -48,9 +50,11 @@
                             {% for i in booking_data %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
+                                <td>{{ i.lawyer_first_name }} {{ i.lawyer_last_name }}</td>
+                                <td>{{ i.lawyer_contact_number }}</td>
+                                <td>{{ i.lawyer_email }}</td>
                                 <td>{{ i.date }}</td>
                                 <td>{{ i.description }}</td>
-                                <td>{{ i.lawyer_first_name }} {{ i.lawyer_last_name }}</td>
                                 <td>{{ i.status }}</td>
                             </tr>
                             {% endfor %}

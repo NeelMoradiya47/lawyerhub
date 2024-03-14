@@ -31,6 +31,8 @@
                         <tr>
                             <th>No.</th>
                             <th>Client Name</th>
+                            <th>Client Contact No</th>
+                            <th>Client Email</th>
                             <th>Date</th>
                             <th>Description</th>
                             <th>Action</th>
@@ -42,6 +44,8 @@
                         <tr>
                             <td>{{ forloop.counter }}</td>
                             <td>{{ i.user_first_name }} {{ i.user_last_name }}</td>
+                            <td>{{ i.user_contact_number }}</td>
+                            <td>{{ i.user_email }}</td>
                             <td>{{ i.date }}</td>
                             <td>{{ i.description }}</td>
 
