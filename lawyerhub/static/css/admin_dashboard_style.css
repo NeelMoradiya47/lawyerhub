@@ -2,6 +2,19 @@
     background-color: rgb(245, 245, 245);
 }
 
+.alert {
+    width: fit-content;
+    margin-bottom: 1rem;
+}
+
+#update_page {
+    margin-bottom: 12.9rem;
+}
+
 #alert {
     width: max-content;
+}
+
+#last_link {
+    margin-bottom: 10.35rem;
 }

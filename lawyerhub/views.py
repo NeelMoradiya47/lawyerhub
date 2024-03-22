@@ -140,11 +140,14 @@ def single_lawyer(request, l_id):
         return render(request, 'single_lawyer.html', {'lawyer_data': lawyer_data})
 
 def send_message_admin(request):
+    admin_data = Administrator.objects.all().values().first()
+    contact_number = admin_data.get('contact_number', 'Contact no is not available')
+    
     # Nexmo credentials
     nexmo_api_key = '6f78714d'
     nexmo_api_secret = 'TYmzVMqIrf7rihCr'
-    nexmo_phone_number = '+917574020228'
-    recipient_phone_number = '+917574020228'
+    nexmo_phone_number = contact_number
+    recipient_phone_number = contact_number
     
     # User information
     first_name = request.POST.get('first_name')
@@ -169,15 +172,11 @@ def send_message_admin(request):
 
     # Send SMS using Nexmo API
     requests.post(nexmo_api_url, data=params)
-    # response = requests.post(nexmo_api_url, data=params)
-
-    # if response.status_code == 200:
-    #     print("Message sent successfully.")
-    # else:
-    #     print(f"Failed to send message. Status code: {response.status_code}")
-    #     print(response.text)
     
 def send_email_lawyer_and_user(request):
+    admin_data = Administrator.objects.all().values().first()
+    admin_email = admin_data.get('email', 'Email is not available')
+
     first_name = request.POST.get('first_name')
     last_name = request.POST.get('last_name')
     email = request.POST.get('email')
@@ -192,7 +191,7 @@ def send_email_lawyer_and_user(request):
     email_message = EmailMessage(
         subject,
         message,
-        "neelmoradiya56@gmail.com",
+        admin_email,
         [email],
     )
     
@@ -506,6 +505,9 @@ def lawyer_booking(request):
         return redirect('lawyerhub:login')
 
 def accept_request(request, booking_id):
+    admin_data = Administrator.objects.all().values().first()
+    admin_email = admin_data.get('email', 'Email is not available')
+    
     get_ci = Booking.objects.filter(booking_id=booking_id).all()
     Booking.objects.filter(booking_id=booking_id).update(status='Accepted')
     
@@ -526,7 +528,7 @@ def accept_request(request, booking_id):
             email_message = EmailMessage(
                 subject,
                 message,
-                "neelmoradiya56@gmail.com",
+                admin_email,
                 [email],
             )
 
@@ -755,6 +757,9 @@ def admin_user(request):
         return redirect('lawyerhub:login')
  
 def block_user(request, c_id):
+    admin_data = Administrator.objects.all().values().first()
+    admin_email = admin_data.get('email', 'Email is not available')
+
     client = Client.objects.filter(client_id=c_id).all()
     update = Client.objects.filter(client_id=c_id).update(status='Block')
     if update:
@@ -769,7 +774,7 @@ def block_user(request, c_id):
         email_message = EmailMessage(
             subject,
             message,
-            "neelmoradiya56@gmail.com",
+            admin_email,
             [email],
         )
 
@@ -781,6 +786,9 @@ def block_user(request, c_id):
         return redirect('lawyerhub:admin_user')
 
 def unblock_user(request, c_id):
+    admin_data = Administrator.objects.all().values().first()
+    admin_email = admin_data.get('email', 'Email is not available')
+    
     client = Client.objects.filter(client_id=c_id).all()
     update = Client.objects.filter(client_id=c_id).update(status='Active')
     if update:
@@ -795,7 +803,7 @@ def unblock_user(request, c_id):
         email_message = EmailMessage(
             subject,
             message,
-            "neelmoradiya56@gmail.com",
+            admin_email,
             [email],
         )
 
@@ -817,6 +825,9 @@ def admin_lawyer(request):
         return redirect('lawyerhub:login')
 
 def send_confirm_mail_lawyer(request, lawyer):
+    admin_data = Administrator.objects.all().values().first()
+    admin_email = admin_data.get('email', 'Email is not available')
+    
     first_name = lawyer.get('first_name', 'first_name not available')
     last_name = lawyer.get('last_name', 'last_name not available')
     email = lawyer.get('email', 'email not available')
@@ -833,7 +844,7 @@ def send_confirm_mail_lawyer(request, lawyer):
     email_message = EmailMessage(
         subject,
         message,
-        "neelmoradiya56@gmail.com",
+        admin_email,
         [email],
     )
     

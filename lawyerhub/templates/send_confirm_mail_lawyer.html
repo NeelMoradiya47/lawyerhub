@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,50 +7,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Message</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 590px;
-            margin: auto;
-        }
-
-        td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        h2 {
-            margin: 0 0 10px;
-            font-size: 1.5em;
-        }
-
-        h6 {
-            margin: 0;
-            font-size: 1em;
-        }
-
-        hr {
-            border: none;
-            border-top: 1px solid #ccc;
-            margin: 10px 0;
-        }
-
-        p {
-            margin: 10px 0;
-            font-size: 1em;
-        }
-
-        a {
-            display: inline-block;
-            padding: 10px;
-            text-decoration: none;
-        }
-    </style>
+    {% block style %}
+    <link rel="stylesheet" type='text/css' href="{% static 'css/email_style.css' %}">
+    {% endblock %}
 </head>
 
 <body>

@@ -5,11 +5,6 @@
 
 {% block style %}
 <link rel="stylesheet" type='text/css' href="{% static 'css/admin_dashboard_style.css' %}">
-<style>
-    #update {
-        margin-bottom: 11.9rem;
-    }
-</style>
 {% endblock %}
 
 {% block main %}
@@ -19,7 +14,7 @@
             <div class="list-group list-group-flush">
                 <a href="/user_edit_profile" class="list-group-item list-group-item-action sidebar">Edit Profile</a>
                 <a href="/user_booking" class="list-group-item list-group-item-action sidebar">My booking requests</a>
-                <a href="/update_password_user" class="list-group-item list-group-item-action sidebar" id="update">Update
+                <a href="/update_password_user" class="list-group-item list-group-item-action sidebar" id="update_page">Update
                     Password</a>
             </div>
         </div>

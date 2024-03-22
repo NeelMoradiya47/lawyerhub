@@ -113,10 +113,11 @@
                             <label for="city" class="mb-1">City</label>
                             <select id="city" name="city" class="form-control mb-1" required>
                                 <option value="" selected>Choose...</option>
-                                <option value="Surat">Surat</option>
-                                <option value="Chittagong">Chittagong</option>
-                                <option value="Rajkot">Rajkot</option>
                                 <option value="Bhavnagar">Bhavnagar</option>
+                                <option value="Surat">Surat</option>
+                                <option value="Rajkot">Rajkot</option>
+                                <option value="Vadodara">Vadodara</option>
+                                <option value="Ahemdabad">Ahemdabad</option>
                             </select>
                         </div>
 
@@ -140,7 +141,6 @@
                     </div>
 
                     <div class="form-group">
-                        <!--a lawyer can choose 5 category at max-->
                         <label for="speciality" class="mt-2 mb-1">Types of case handle</label>
                         <div class="row mb-1">
                             <div class="col-6">
@@ -162,49 +162,41 @@
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="case_handle"
-                                        value="Writ Jurisdiction" id="writ_jurisdiction">
-                                    <label class="form-check-label" for="writ_jurisdiction">
-                                        Writ Jurisdiction
+                                        value="Environmental law" id="environmental_law">
+                                    <label class="form-check-label" for="environmental_law">
+                                        Environmental law
                                     </label>
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="case_handle"
-                                        value="Company law" id="company_law">
-                                    <label class="form-check-label" for="company_law">
-                                        Company law
+                                        value="Corporate law" id="corporate_law">
+                                    <label class="form-check-label" for="corporate_law">
+                                        Corporate law
                                     </label>
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="case_handle"
-                                        value="Contract law" id="contract_law">
-                                    <label class="form-check-label" for="contract_law">
-                                        Contract law
+                                        value="Cyber Law" id="cyber_law">
+                                    <label class="form-check-label" for="cyber_law">
+                                        Cyber Law
                                     </label>
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="case_handle"
-                                        value="Commercial matter" id="commercial_matter">
-                                    <label class="form-check-label" for="commercial_matter">
-                                        Commercial matter
+                                        value="Bankruptcy Law" id="bankruptcy_law">
+                                    <label class="form-check-label" for="bankruptcy_law">
+                                        Bankruptcy Law
                                     </label>
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="case_handle"
-                                        value="Construction law" id="construction_law">
-                                    <label class="form-check-label" for="construction_law">
-                                        Construction law
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="case_handle"
-                                        value="Information Technology" id="it">
-                                    <label class="form-check-label" for="it">
-                                        Information Technology
+                                        value="Securities Law" id="securities_law">
+                                    <label class="form-check-label" for="securities_law">
+                                        Securities Law
                                     </label>
                                 </div>
                             </div>
@@ -220,17 +212,17 @@
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="case_handle"
-                                        value="Religious Matter" id="religious_matter">
-                                    <label class="form-check-label" for="religious_matter">
-                                        Religious Matter
+                                        value="Military Law" id="military_law">
+                                    <label class="form-check-label" for="military_law">
+                                        Military Law
                                     </label>
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="case_handle"
-                                        value="Investment Matter" id="investment_matter">
-                                    <label class="form-check-label" for="investment_matter">
-                                        Investment Matter
+                                        value="Contract Lawr" id="contract_law">
+                                    <label class="form-check-label" for="contract_law">
+                                        Contract Law
                                     </label>
                                 </div>
 
@@ -244,17 +236,17 @@
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="case_handle"
-                                        value="Property Law" id="property_law">
-                                    <label class="form-check-label" value="Labour Law" for="property_law">
-                                        Property Law
+                                        value="Government Law" id="government_law">
+                                    <label class="form-check-label" value="Labour Law" for="government_law">
+                                        Government Law
                                     </label>
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="case_handle"
-                                        value="Taxation Matter" id="taxation_matter">
-                                    <label class="form-check-label" for="taxation_matter">
-                                        Taxation Matter
+                                        value="Tax Law" id="tax_law">
+                                    <label class="form-check-label" for="tax_law">
+                                        Tax Law
                                     </label>
                                 </div>
 
@@ -275,18 +267,17 @@
                             <option value="" selected>Choose...</option>
                             <option value="Criminal Law">Criminal law</option>
                             <option value="Civil Law">Civil law</option>
-                            <option value="Writ Jurisdiction">Writ Jurisdiction</option>
-                            <option value="Company Law">Company law</option>
-                            <option value="Contract Law">Contract law</option>
-                            <option value="Commercial Law">Commercial law</option>
-                            <option value="Construction Law">Construction law</option>
-                            <option value="IT Law">IT law</option>
+                            <option value="Environmental Law">Environmental law</option>
+                            <option value="Corporate Law">Corporate law</option>
+                            <option value="Cyber Law">Cyber law</option>
+                            <option value="Bankruptcy Law">Bankruptcy law</option>
+                            <option value="Securities Law">Securities law</option>
                             <option value="Family Law">Family law</option>
-                            <option value="Religious Law">Religious law</option>
-                            <option value="Investment Law">Investment law</option>
+                            <option value="Military Law">Military law</option>
+                            <option value="Contract Law">Contract law</option>
                             <option value="Labour Law">Labour law</option>
-                            <option value="Property Law">Property law</option>
-                            <option value="Taxation Law">Taxation law</option>
+                            <option value="Government Law">Government law</option>
+                            <option value="Tax Law">Tax law</option>
                         </select>
                     </div>
 

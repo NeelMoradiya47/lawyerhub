@@ -6,6 +6,7 @@ class Administrator(models.Model):
     first_name = models.CharField(max_length=255, default=None)
     last_name = models.CharField(max_length=255, default=None)
     email = models.EmailField(default=None)
+    contact_number = models.CharField(max_length=15, default=None)
     password = models.CharField(max_length=255, default=None)
     status = models.CharField(max_length=255, default=None)
     address = models.TextField()
