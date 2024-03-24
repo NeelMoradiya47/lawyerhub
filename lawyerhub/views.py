@@ -1,13 +1,14 @@
 import os
-from datetime import date, datetime
 import uuid
-from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
-from django.shortcuts import render, redirect
-from .models import Administrator, Booking, Client, Lawyer, Feedback
-from bson import json_util
+from datetime import date, datetime
 import json
 import requests
+from django.core.mail import EmailMessage
+from django.db.models import Count
+from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from .models import Administrator, Booking, Client, Lawyer, Feedback
+from bson import json_util
 
 # Function to format data into JSON
 def get_formatted_data(data):
@@ -20,17 +21,19 @@ def get_formatted_data(data):
     return json_data
 
 def index(request):
-    lawyer_data = Lawyer.objects.filter(status='Active').values()
+    top_lawyer_ids = Booking.objects.values('lawyer_id').annotate(total_bookings=Count('lawyer_id')).order_by('-total_bookings')[:3]
+    top_lawyer_ids = [entry['lawyer_id'] for entry in top_lawyer_ids]
+    top_lawyers = Lawyer.objects.filter(lawyer_id__in=top_lawyer_ids).values()
     
     msg = request.session.get('msg', '')
     if msg == 'lawyer':
-        return render(request, 'index.html', {'lawyer_data': lawyer_data, 'msg': msg})
+        return render(request, 'index.html', {'top_lawyers': top_lawyers, 'msg': msg})
     elif msg == 'user':
-        return render(request, 'index.html', {'lawyer_data': lawyer_data, 'msg': msg})
+        return render(request, 'index.html', {'top_lawyers': top_lawyers, 'msg': msg})
     elif msg == 'admin':
-        return render(request, 'index.html', {'lawyer_data': lawyer_data, 'msg': msg})
+        return render(request, 'index.html', {'top_lawyers': top_lawyers, 'msg': msg})
     else:    
-        return render(request, 'index.html', {'lawyer_data': lawyer_data})
+        return render(request, 'index.html', {'top_lawyers': top_lawyers})
 
 def lawyers(request):
     lawyer_data = Lawyer.objects.filter(status='Active').values()
